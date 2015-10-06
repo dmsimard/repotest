@@ -25,9 +25,6 @@ PATH=/usr/sbin:/usr/bin:/sbin:/bin
 DEBUG=0
 TMPDIR=$(mktemp -d /tmp/repotest.XXXXX)
 
-# Default to dnf, otherwise choose yum
-YUM=$(command -v dnf) || YUM=$(command -v yum)
-
 function WriteInfo() {
     wi_DateTimeStamp=$(date +%d/%m/%Y-%H:%M:%S)
     echo "${wi_DateTimeStamp} INFO: ${1}"
@@ -125,12 +122,16 @@ if [[ ! "${1}" =~ http.*\.repo ]]; then
     ExitScript 1 "Please provide a valid repository URL."
 fi
 
+# Ensure curl is there
 CURL=$(command -v curl) || true
 if [ -z "${CURL}" ]; then
     WriteInfo "Installing curl ..."
     yum -y -q install curl
     CURL=$(command -v curl)
 fi
+
+# Default to dnf, otherwise choose yum
+YUM=$(command -v dnf) || YUM=$(command -v yum)
 
 # Repository constants
 REPO_URL="${1}"
