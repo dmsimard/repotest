@@ -1,7 +1,7 @@
 repotest
 ========
-A simple utility to try and do some rough testing to see if a repository seems
-to work.
+A simple utility to try and do some rough testing to see if a delorean
+repository seems to work.
 
 Can be used with Jenkins, the script will drop a repository.properties file to
 be passed along to a parameterized job.

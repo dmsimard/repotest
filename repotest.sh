@@ -81,7 +81,10 @@ function DownloadRepo() {
 
 DumpRepoConfig() {
     WriteInfo "Dumping repository configuration to in $(pwd)/repository.properties ..."
+    # delorean repository format: /4b/15/4b155c41faaababb57c5b1b9e016402bb4376d07_292dd64b
+    delorean_pin_version=$(echo $baseurl |awk -F/ '{print $(NF-2)"/"$(NF-1)"/"$(NF)}')
     echo "baseurl = ${baseurl}" >repository.properties
+    echo "delorean_pin_version = ${delorean_pin_version}" >>repository.properties
 }
 
 function ValidateRepo() {
